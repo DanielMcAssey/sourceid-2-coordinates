@@ -6,6 +6,18 @@
     "name": "Daniel McAssey",
     "email": "dan@glokon.me"
   },
+  "keywords": [
+    "jitsi",
+    "sourceid-2-coordinates"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DanielMcAssey/sourceid-2-coordinates.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DanielMcAssey/sourceid-2-coordinates/issues"
+  },
+  "homepage": "https://github.com/DanielMcAssey/sourceid-2-coordinates",
   "license": "MIT",
   "private": true,
   "main": "dist/index.js",
