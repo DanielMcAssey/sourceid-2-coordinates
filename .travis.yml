@@ -1,51 +1,46 @@
-sudo: false
 language: cpp
-
+dist: xenial
 env:
   matrix:
-    - TRAVIS_NODE_VERSION="8"
-    - TRAVIS_NODE_VERSION="10"
-    - TRAVIS_NODE_VERSION="12"
-    - TRAVIS_NODE_VERSION="stable"
-
+  - TRAVIS_NODE_VERSION="stable"
 os:
-  - linux
-  - osx
-
+- linux
+- osx
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 git:
   depth: 5
-
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - zlib1g-dev
-      - g++-4.8
-      - gcc-4.8
-
+    - zlib1g-dev
+    - g++-4.8
+    - gcc-4.8
 before_install:
-  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh
-  - nvm install $TRAVIS_NODE_VERSION
-  - PATH=$PATH:`pwd`/node_modules/.bin
-  # print versions
-  - node --version
-  - npm --version
-
-  # use g++-4.8 on Linux
-  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
-  - $CXX --version
-
+- rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
+  && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh
+- nvm install $TRAVIS_NODE_VERSION
+- PATH=$PATH:`pwd`/node_modules/.bin
+- node --version
+- npm --version
+- if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
+- "$CXX --version"
 install:
-  - npm install
-
+- npm install
 script:
-  - npm run build
-
+- npm run build
 after_success:
-  - if [[ $TRAVIS_TAG != "" ]]; then npm run prebuild -- -u $GITHUB_TOKEN; fi
+- if [[ $TRAVIS_TAG != "" ]]; then npm run prebuild -- -u $GITHUB_TOKEN; fi
 
+deploy:
+  provider: npm
+  email: daniel.mcassey@gmail.com
+  api_key:
+    secure: PipmUL2BiVAyXLHJRxQnGBClIVAPAZGfBSyyoRMRzPgMlVmSiB728Z6xIfRLSrODv+U8P64hhRqcZ39Gyne4KANNu6bMa43f/xlWKQPMlF6HUdNQPdWI4Aj0tr9qldXCEBE4mKHoIz2Wd4nbev6sbhDycaYxWlmPb7LKUYmxaanYJwTDg+wCwACS5+IKvwsphQ0/fqMTquO4Vz6kXV8Mn30QAv0MnjU4sEdRPf3rmEpSfQYiQcwU4jnBhUFRb98NUo6vD3Gs5Hy50ZnxG9mPfwFJgb/JsoOnpgHBfOymfH1oYdhs8LtUk7YFdUDZMJ43vzHxxy7PPnJjjSxIHyh+RCvM4W1tLyTyEMk4zzA+Emh/8hmCwYuMVMgRJgixTYvbI/EZG6ncRoOeMnjElJTe3B1Md9fo+sd7Sg5wtYT09IDgF1wMhMYZ3J26ibPHTuRvr7G0hHX5vw9HUoPx92UbHLBTcp+kAGzSkpScAXBjJSSr7ikRoJ1AUTvtzoIMENExoMO//3qqvWBs6aaXtF0261mlrWCob30giLu93vHmQcov+PVPMusDXS8KEGHZ+6DWlOyaRp0wlJzn0qWagx3hnLfxlYzHZWbvosaCj8/Qkw72mdHK6Ex0gCe0i6Ofi0tFSICZwjh9qd+9XjNH8RSxNB0r5ixmENaC2d89KbRnxbo=
+  on:
+    tags: true
+    repo: DanielMcAssey/sourceid-2-coordinates
+  skip_cleanup: 'true'
