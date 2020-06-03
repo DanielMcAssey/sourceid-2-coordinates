@@ -15,14 +15,13 @@
     "build": "npm run build-native && npm run tsc",
     "tsc": "tsc",
     "build-native": "node-gyp rebuild",
-    "install": "prebuild-install || electron-rebuild rebuild",
+    "install": "prebuild-install || node-gyp rebuild rebuild",
     "install-debug": "prebuild-install || node-gyp rebuild --debug",
     "prebuild": "prebuild --all"
   },
   "dependencies": {
     "nan": "^2.14.0",
-    "prebuild-install": "^5.3.3",
-    "electron-rebuild": "^1.11.0"
+    "prebuild-install": "^5.3.3"
   },
   "devDependencies": {
     "@types/node": "12.11.1",
