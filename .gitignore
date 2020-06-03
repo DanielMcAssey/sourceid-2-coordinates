@@ -1,0 +1,9 @@
+# IntelliJ project files
+.idea
+
+# Typescript install files
+node_modules/
+dist
+build/
+bin
+prebuilds/
