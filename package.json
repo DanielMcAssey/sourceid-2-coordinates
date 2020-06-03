@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@types/node": "12.11.1",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+	"prebuild": "^9.1.1"
   }
 }
