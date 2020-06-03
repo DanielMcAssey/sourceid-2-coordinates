@@ -43,9 +43,8 @@ before_install:
 install:
   - npm install
 
-#script:
-#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then npm test; fi
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then xvfb-run npm test; fi
+script:
+  - npm run build
 
 after_success:
   - if [[ $TRAVIS_TAG != "" ]]; then npm run prebuild -- -u $GITHUB_TOKEN; fi
