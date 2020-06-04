@@ -17,7 +17,7 @@ before_install:
 - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
   && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh; fi
 - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nvm; fi
-- "$PATH"
+- "echo $PATH"
 - nvm install $TRAVIS_NODE_VERSION
 - PATH=$PATH:`pwd`/node_modules/.bin
 - node --version
