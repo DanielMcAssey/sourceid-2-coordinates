@@ -7,27 +7,20 @@ os:
 - linux
 - osx
 - windows
+compiler: gcc
 cache:
   directories:
   - node_modules
 git:
   depth: 5
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - zlib1g-dev
-    - g++-4.8
-    - gcc-4.8
 before_install:
-- rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
-  && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh
+- if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
+  && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh; fi
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nvm; fi
 - nvm install $TRAVIS_NODE_VERSION
 - PATH=$PATH:`pwd`/node_modules/.bin
 - node --version
 - npm --version
-- if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
 - "$CXX --version"
 install:
 - npm install
