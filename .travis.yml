@@ -6,6 +6,7 @@ env:
 os:
 - linux
 - osx
+- windows
 cache:
   directories:
   - node_modules
