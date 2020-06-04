@@ -16,10 +16,11 @@ git:
 before_install:
 - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
   && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh; fi
-- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nvm; fi
+#- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nvm; fi
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install nodejs; fi
 - "echo $PATH"
-- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell -NonInteractive -Command '[Environment]::GetEnvironmentVariable("NVM_HOME","Machine") + "\\nvm install stable"'; fi
-- if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then nvm install $TRAVIS_NODE_VERSION; fi
+#- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell -NonInteractive -Command '[Environment]::GetEnvironmentVariable("NVM_HOME","Machine") + "\\nvm install stable"'; fi
+#- if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then nvm install $TRAVIS_NODE_VERSION; fi
 - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User") + ";" + [Environment]::GetEnvironmentVariable("NVM_HOME","Machine") + ";" + [Environment]::GetEnvironmentVariable("NVM_SYMLINK","Machine")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")'); fi
 - "echo $PATH"
 - PATH=$PATH:`pwd`/node_modules/.bin
